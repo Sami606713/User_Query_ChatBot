@@ -27,16 +27,16 @@ if user_query:
             # Parse Response
             if response.status_code == 200:
                 data = response.json()
-                video_url = data.get("Video Url")
+                # st.write(data)
+                text = data['Response'][0]
+                video_url = data['Response'][1]
 
-                if video_url:
-                    # Display Video Link
-                    st.success("Here is the video link:")
-                    st.write(f"[{video_url}]({video_url})")
+                if video_url and text:
+                    st.write(text)
                     
                     # Embed YouTube Video
                     video_id = video_url.split("v=")[-1]
-                    st.video(f"https://www.youtube.com/embed/{video_id}")
+                    st.video(video_url)
                 else:
                     st.error("No video found.")
             else:

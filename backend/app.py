@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from utils import GetYoutubeVideo
+from utils import GetYoutubeVideo,Generate_Response
 
 app = FastAPI()
 
@@ -20,8 +20,14 @@ def generate_response(input_data: GetText):
     # Process the input text
     query = input_data.query
     
+    # Video Response
     youtube = GetYoutubeVideo(query=query)
 
     final_url = youtube.process_query()
 
-    return {"Video Url": final_url}
+    # Textual Response
+    text_response=Generate_Response(query=query)
+    text=text_response.response()
+
+
+    return {"Response": [text,final_url]}
