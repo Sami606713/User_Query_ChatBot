@@ -61,8 +61,9 @@ class GetYoutubeVideo:
                 raise ValueError("No valid video IDs found.")
 
             # Return a random video ID
-            final_url=  f"https://www.youtube.com/watch?v={random.choice(video_ids)}"
-            return final_url
+            # final_url=  f"https://www.youtube.com/watch?v={random.choice(video_ids)}"
+            # return final_url
+            return random.choice(video_ids)
         except Exception as e:
             return f"Error: {e}"
 
@@ -115,7 +116,7 @@ class Generate_Response:
             # make a prompt template for the model for langauage translation
             prompt = PromptTemplate(
                 template = """
-                    Role: You are an expert assistant specializing in providing clear, concise, and helpful responses to user queries.
+                    Role: You are an expert assistant specializing in providing clear, concise, and helpful responses to user queries Do not write any piece of code only return text..
 
                     Goal: Your primary objective is to address the user's query positively and effectively. You should ensure that the response is easy to understand and actionable.
 
