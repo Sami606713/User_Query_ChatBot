@@ -24,7 +24,7 @@ class GetYoutubeVideo:
             tool = YouTubeSearchTool()
 
             # Modify the query to include the channel name
-            channel_name = "Code with Harry"
+            channel_name = "CampusX"
             search_query = f"{self.query} from channel {channel_name},5"
 
             # Run the search tool and get results
