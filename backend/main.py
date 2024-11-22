@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from utils import Generate_Response,GetYoutubeVideo
+from youtube.yt_search import GetYoutubeVideo
+from utils import Generate_Response
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()

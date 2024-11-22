@@ -55,7 +55,6 @@ class GetYoutubeVideo:
 
             # if not video_ids:
             #     raise ValueError("No valid video IDs found.")
-            print(video_ids)
             # Return a random video ID
             final_url=  f"https://www.youtube.com/watch?v={random.choice(video_ids)}"
             return final_url
@@ -80,3 +79,11 @@ class GetYoutubeVideo:
         except Exception as e:
             return e
 
+
+if __name__=="__main__":
+# Video Response
+    query="Transformer artitucture"
+    youtube = GetYoutubeVideo(query=query)
+
+    final_url = youtube.process_query()
+    print(final_url)

@@ -1,2 +1,7 @@
 venv/
 .env
+web_search/__pycache__/
+youtube/__pycache__/
+__pycache__/
+backend/__pycache__/main.cpython-312.pyc
+backend/__pycache__/utils.cpython-312.pyc

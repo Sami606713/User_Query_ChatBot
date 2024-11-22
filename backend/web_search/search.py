@@ -49,7 +49,7 @@ class SearchQuery:
             return e
     
 if __name__=="__main__":
-    query="who is the founder of campusX?"
+    query="How we can enroll in deep learning for computer vision course?"
 
     search=SearchQuery(query=query)
     results=search.get_results()
