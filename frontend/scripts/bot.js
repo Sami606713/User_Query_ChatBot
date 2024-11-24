@@ -37,7 +37,7 @@ document.getElementById('send-btn').addEventListener('click', function() {
     if (userInput.trim() !== "") {
         appendMessage(userInput, 'user'); // Append user message
         get_response(userInput)
-        // appendMessage("How can I help you?", 'bot'); // Bot's immediate response
+        // appendMessage("How can /I help you?", 'bot'); // Bot's immediate response
 
         // Clear the input field
         document.getElementById('user-input').value = '';
@@ -69,6 +69,9 @@ function get_response(user_query) {
         .then(data => {
             let text = data['Response'][0];
             let video_id = data['Response'][1];
+
+            // Parse the response
+            text = parseResponse(text);
             const botResponse = `
                 <div class="chat-message bot-message">
                     
@@ -90,4 +93,14 @@ function get_response(user_query) {
             console.error('Error:', error);
             appendMessage("Sorry, there was an error. Please try again.", 'bot');
         });
+}
+
+// Function to parse response
+function parseResponse(response) {
+    // Replace links and formats appropriately
+    const formattedText = response
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // Bold text
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>'); // Links
+    
+    return formattedText; // Return parsed text
 }
