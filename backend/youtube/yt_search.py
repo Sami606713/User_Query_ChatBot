@@ -20,7 +20,7 @@ class GetYoutubeVideo:
             tool = YouTubeSearchTool()
 
             # Modify the query to include the channel name
-            channel_name = "CampusX"
+            channel_name = "@campusx-official"
             search_query = f"{self.query} from channel {channel_name},5"
 
             # Run the search tool and get results
@@ -43,7 +43,7 @@ class GetYoutubeVideo:
         """
         try:
             video_ids = []
-            print(results)
+            # print(results)
             for url in results:
                 # Parse the URL to extract the video ID
                 parsed_url = urlparse(url)
@@ -53,12 +53,12 @@ class GetYoutubeVideo:
                 if video_id:
                     video_ids.append(video_id)
 
-            # if not video_ids:
-            #     raise ValueError("No valid video IDs found.")
+            if not video_ids:
+                raise ValueError("No valid video IDs found.")
             # Return a random video ID
-            final_url=  f"https://www.youtube.com/watch?v={random.choice(video_ids)}"
-            return final_url
-            # return random.choice(video_ids)
+            # final_url=  f"https://www.youtube.com/watch?v={random.choice(video_ids)}"
+            # return final_url
+            return random.choice(video_ids)
         except Exception as e:
             return f"Error: {e}"
 

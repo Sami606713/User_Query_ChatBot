@@ -27,7 +27,7 @@ class SearchQuery:
             include_answer=True,
             include_raw_content=True,
             include_images=True,
-            include_domains=['https://learnwith.campusx.in'],
+            include_domains=['https://learnwith.campusx.in',"https://learnwith.campusx.in/s/store","https://learnwith.campusx.in/products#nav_bar",'https://learnwith.campusx.in/s/store/courses/Free%20Courses','https://learnwith.campusx.in/s/store/courses/Paid%20Courses','https://learnwith.campusx.in/s/store/courses/Mentorship%20Program'],
             name="CampusX Tool Search",
             tavily_api_key=self.tavily_api_key
         )
@@ -49,7 +49,7 @@ class SearchQuery:
             return e
     
 if __name__=="__main__":
-    query="How we can enroll in deep learning for computer vision course?"
+    query="What is DAMP?"
 
     search=SearchQuery(query=query)
     results=search.get_results()
