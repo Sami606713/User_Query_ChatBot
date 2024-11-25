@@ -1,100 +1,78 @@
-// Function to show loading state
+// DOM elements
+const chatbotIcon = document.querySelector('.chatbot-icon');
+const chatbotContainer = document.querySelector('.chatbot-container');
+const closeIcon = document.querySelector('.close-icon');
+const sendButton = document.getElementById('send-btn');
+const userInput = document.getElementById('user-input');
+
+// Show chatbot on icon click
+chatbotIcon.addEventListener('click', () => {
+    chatbotContainer.style.display = 'flex';
+    chatbotIcon.style.display = 'none';
+});
+
+// Close chatbot on close icon click
+closeIcon.addEventListener('click', () => {
+    chatbotContainer.style.display = 'none';
+    chatbotIcon.style.display = 'flex';
+});
+
+// Show loading state
 function showLoading() {
     document.getElementById('loading-bar').style.display = 'block';
 }
 
-// Function to hide loading state
+// Hide loading state
 function hideLoading() {
     document.getElementById('loading-bar').style.display = 'none';
 }
 
-// Function to append user and bot messages dynamically
+// Append messages to the chat
 function appendMessage(message, sender) {
-    let messageDiv = document.createElement('div');
-    
-    // Add different classes depending on the sender
-    if (sender === 'user') {
-        messageDiv.classList.add('user-message');
-        messageDiv.innerText = message; // Plain text message
-    } else if (sender === 'bot') {
-        messageDiv.classList.add('bot-message');
-        messageDiv.innerHTML = message; // Bot message can have HTML content
-    }
-
-    // Append the message to the chat body
-    document.getElementById('chat-body').appendChild(messageDiv);
-
-    // Scroll chat body to bottom to show latest message
-    let chatBody = document.getElementById('chat-body');
+    const chatBody = document.getElementById('chat-body');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = sender === 'user' ? 'user-message' : 'bot-message';
+    messageDiv.innerHTML = message;
+    chatBody.appendChild(messageDiv);
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-// Event listener for send button
-document.getElementById('send-btn').addEventListener('click', function() {
-    let userInput = document.getElementById('user-input').value;
-
-    // If user input is not empty, process the message
-    if (userInput.trim() !== "") {
-        appendMessage(userInput, 'user'); // Append user message
-        get_response(userInput)
-        // appendMessage("How can /I help you?", 'bot'); // Bot's immediate response
-
-        // Clear the input field
-        document.getElementById('user-input').value = '';
+// Send message event
+sendButton.addEventListener('click', () => {
+    const userQuery = userInput.value.trim();
+    if (userQuery) {
+        appendMessage(userQuery, 'user');
+        userInput.value = '';
+        showLoading();
+        getResponse(userQuery);
     }
 });
 
-// Function to fetch the bot's response from the server
-function get_response(user_query) {
+// Fetch bot response
+function getResponse(query) {
     console.log("Getting Data...");
     
-    let options = {
+    fetch("http://127.0.0.1:8000/response", {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json;charset=utf-8'
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-            "query": user_query
-        })
-    };
-
-    // Fetch request to your API
-    fetch("http://127.0.0.1:8000/response", options)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
+        body: JSON.stringify({ query })
+    })
+        .then(res => res.json())
         .then(data => {
-            let text = data['Response'][0];
-            let video_id = data['Response'][1];
-
-            // Parse the response
-            text = parseResponse(text);
-            const botResponse = `
-                <div class="chat-message bot-message">
-                    
-                    <div class="bot-message">
-                        <p>${text}</p>
-                        <iframe width="360" height="200" src="https://www.youtube.com/embed/${video_id}" 
-                            title="YouTube video player" frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
-            `;
-
-            // Append the bot's response
+            const botResponse = `<p>${parseResponse(data.Response[0])}</p>
+            <iframe width="360" height="200" src="https://www.youtube.com/embed/${data.Response[1]}" 
+            frameborder="0" allowfullscreen></iframe>`;
             appendMessage(botResponse, 'bot');
+            hideLoading();
         })
-        .catch(error => {
-            console.error('Error:', error);
+        .catch(err => {
+            console.error(err);
             appendMessage("Sorry, there was an error. Please try again.", 'bot');
+            hideLoading();
         });
 }
-
 // Function to parse response
 function parseResponse(response) {
     // Replace links and formats appropriately
