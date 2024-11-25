@@ -19,12 +19,24 @@ closeIcon.addEventListener('click', () => {
 
 // Show loading state
 function showLoading() {
-    document.getElementById('loading-bar').style.display = 'block';
+    const chatBody = document.getElementById('chat-body');
+    const loadingBar = document.createElement('div');
+    loadingBar.className = 'loading-bar';
+    loadingBar.id = 'loading-bar'; // To ensure we can hide it later
+    loadingBar.innerHTML = `
+        <div class="progress"></div>
+        <span>Loading...</span>
+    `;
+    chatBody.appendChild(loadingBar);
+    chatBody.scrollTop = chatBody.scrollHeight; // Scroll to bottom
 }
 
 // Hide loading state
 function hideLoading() {
-    document.getElementById('loading-bar').style.display = 'none';
+    const loadingBar = document.getElementById('loading-bar');
+    if (loadingBar) {
+        loadingBar.remove();
+    }
 }
 
 // Append messages to the chat
@@ -39,11 +51,12 @@ function appendMessage(message, sender) {
 
 // Send message event
 sendButton.addEventListener('click', () => {
+    showLoading();
     const userQuery = userInput.value.trim();
     if (userQuery) {
         appendMessage(userQuery, 'user');
         userInput.value = '';
-        showLoading();
+        
         getResponse(userQuery);
     }
 });
@@ -82,3 +95,4 @@ function parseResponse(response) {
     
     return formattedText; // Return parsed text
 }
+

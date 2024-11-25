@@ -14,6 +14,12 @@
     font-size: 30px;
     cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.chatbot-icon:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
 }
 
 /* Global Styles */
@@ -21,26 +27,27 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #121212;
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: #f0f0f0;
+    color: #000000;
     min-height: 100vh;
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 /* Chatbot Container */
 .chatbot-container {
-    width: 90%;
-    max-width: 400px;
-    background-color: #1a1a1a;
-    border-radius: 10px;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background-color: #ffffff;
+    border-radius: 15px;
     display: none;
     flex-direction: column;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     overflow: hidden;
-    height: 90vh;
+    transition: transform 0.3s ease;
 }
 
 /* Header Styling */
@@ -48,22 +55,32 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
-    background-color: #252525;
-    border-bottom: 1px solid #444;
+    padding: 15px;
+    background-color: #007bff;
+    color: white;
+    border-bottom: 2px solid #0056b3;
+    border-radius: 15px 15px 0 0;
+}
+
+.chatbot-header img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
 }
 
 .chatbot-header h2 {
     margin: 0;
-    color: #ffffff;
+    color: white;
     font-size: 1.5rem;
     flex-grow: 1;
+    text-align: center;
 }
 
 .close-icon {
     font-size: 1.5rem;
     cursor: pointer;
-    color: #fff;
+    color: white;
 }
 
 /* Chat Body */
@@ -73,7 +90,8 @@ body {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+    background-color: #f8f9fa;
 }
 
 /* Chat Message Container */
@@ -84,62 +102,135 @@ body {
 }
 
 .bot-message {
-    font-size: 15px;
-    border-radius: 15px;
-    padding: 12px 15px;
-    background-color: #1e1e1e;
-    color: #fff;
-    max-width: 100%;
+    font-size: 14px;
+    border-radius: 12px;
+    padding: 10px 12px;
+    background-color: #e9ecef;
+    color: #333;
+    max-width: 75%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-self: flex-start;
+}
+
+.bot-message iframe {
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Subtle shadow */
+    margin-top: 10px; /* Space between text and iframe */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover effect */
+    max-width: 100%; /* Ensures responsiveness */
+    height: auto; /* Auto-adjust height */
+    background: #000; /* Black background for iframe */
+}
+
+/* Hover effect for the iframe */
+.bot-message iframe:hover {
+    transform: scale(1.03); /* Slight zoom on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6); /* Enhanced shadow on hover */
 }
 
 .user-message {
-    background-color: #eff1ef;
-    color: #000000;
-    padding: 12px 15px;
-    border-radius: 15px;
-    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-size: 14px;
     max-width: 75%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-self: flex-end;
 }
 
 /* Input Area Styling */
 .chatbot-input-area {
     display: flex;
     align-items: center;
-    padding: 10px 15px;
-    background-color: #252525;
-    border-top: 1px solid #444;
+    padding: 10px;
+    background-color: #ffffff;
+    border-top: 2px solid #e9ecef;
     gap: 10px;
 }
 
 .chatbot-input-area input {
     flex-grow: 1;
-    padding: 12px;
+    padding: 10px;
     font-size: 1rem;
-    border: none;
+    border: 2px solid #e9ecef;
     border-radius: 5px;
-    background-color: #333;
-    color: #fff;
+    background-color: #f8f9fa;
+    color: #000;
     outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.chatbot-input-area input:focus {
+    border-color: #007bff;
 }
 
 .chatbot-input-area button {
-    padding: 12px 20px;
+    padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    background-color: #00ff99;
-    color: #050505;
+    background-color: #007bff;
+    color: white;
     font-weight: bold;
     cursor: pointer;
     font-size: 1rem;
+    transition: background-color 0.3s ease;
 }
 
-/* Loading Bar */
+.chatbot-input-area button:hover {
+    background-color: #0056b3;
+}
+
+/* Loading Bar Styles */
 .loading-bar {
-    display: none;
-    text-align: center;
-    margin: 10px 0;
+    display: flex; /* Centers content vertically */
+    flex-direction: column; /* Stacks progress bar and text */
+    align-items: center; /* Centers content horizontally */
+    justify-content: center; /* Centers vertically */
+    width: 100%; /* Full-width bar */
+    padding: 15px 0; /* Add some vertical space */
+    background-color: #f9f9f9; /* Subtle background */
+}
+
+.loading-bar .progress {
+    position: relative;
+    width: 80%; /* Adjust width as needed */
+    height: 10px; /* Thickness of the bar */
+    background-color: #e0e0e0; /* Background of the bar */
+    border-radius: 5px; /* Rounded edges */
+    overflow: hidden; /* Clips the animation */
+    margin-bottom: 10px; /* Space between bar and text */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.loading-bar .progress::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    animation: loading-animation 2s infinite; /* Animates the bar */
 }
 
 .loading-bar span {
-    color: #00ff99;
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem; /* Adjust size */
+    color: #555; /* Text color */
 }
+
+/* Keyframe Animation for Loading Bar */
+@keyframes loading-animation {
+    0% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
