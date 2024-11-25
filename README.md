@@ -1,7 +1,7 @@
-# Customer Support ChatBot
+# CanpusX ChatBot
 
 ## Overview
-The **Customer Support ChatBot** aims to serve users by efficiently responding to their queries. In addition to addressing textual queries, the bot also provides **YouTube video recommendations** for enhanced assistance.
+The **campusX ChatBot** aims to serve users by efficiently responding to their queries. In addition to addressing textual queries, the bot also provides **YouTube video recommendations** for enhanced assistance.
 
 ---
 
