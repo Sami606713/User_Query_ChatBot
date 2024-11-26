@@ -76,3 +76,21 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/campusx_bot:latest 
+  
+  deployment_job:
+    needs: docker  # This ensures this job runs only after 'docker_job' is successful
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKER_USERNAME }}/language_translator:latest
+            docker stop my-app || true
+            docker rm my-app || true
+            docker run -d -p 80:8000 --name my-app \
+              -e GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} \
+              ${{ secrets.DOCKER_USERNAME }}/language_translator:latest
