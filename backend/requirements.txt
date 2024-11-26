@@ -5,3 +5,4 @@ youtube_search
 fastapi
 uvicorn
 streamlit
+awscli

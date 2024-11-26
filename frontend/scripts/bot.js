@@ -74,7 +74,8 @@ function getResponse(query) {
     })
         .then(res => res.json())
         .then(data => {
-            const botResponse = `<p>${parseResponse(data.Response[0])}</p>
+            const botResponse = `
+            <p>${parseResponse(data.Response[0])}</p>
             <iframe width="360" height="200" src="https://www.youtube.com/embed/${data.Response[1]}" 
             frameborder="0" allowfullscreen></iframe>`;
             appendMessage(botResponse, 'bot');
