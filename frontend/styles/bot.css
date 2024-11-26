@@ -42,6 +42,7 @@ body {
     width: 350px;
     height: 500px;
     background-color: #ffffff;
+    border: 1px solid black;
     border-radius: 15px;
     display: none;
     flex-direction: column;
@@ -182,55 +183,85 @@ body {
     background-color: #0056b3;
 }
 
+/* image icon */
+.bot-response {
+    display: flex;
+    align-items: flex-start;
+    margin: 10px 0;
+}
+
+.bot-logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative; /* Ensure it can adjust freely */
+}
+
+.bot-message {
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+
 /* Loading Bar Styles */
-.loading-bar {
-    display: flex; /* Centers content vertically */
-    flex-direction: column; /* Stacks progress bar and text */
-    align-items: center; /* Centers content horizontally */
-    justify-content: center; /* Centers vertically */
-    width: 100%; /* Full-width bar */
-    padding: 15px 0; /* Add some vertical space */
-    background-color: #f9f9f9; /* Subtle background */
-}
-
-.loading-bar .progress {
+/* Loading Container */
+.loading-container {
+    text-align: center;
+  }
+  
+  .loading-bar {
     position: relative;
-    width: 80%; /* Adjust width as needed */
-    height: 10px; /* Thickness of the bar */
-    background-color: #e0e0e0; /* Background of the bar */
-    border-radius: 5px; /* Rounded edges */
-    overflow: hidden; /* Clips the animation */
-    margin-bottom: 10px; /* Space between bar and text */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
-}
-
-.loading-bar .progress::before {
-    content: "";
+    width: 300px;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  }
+  
+  .progress {
     position: absolute;
     top: 0;
     left: 0;
+    width: 0;
     height: 100%;
-    width: 50%;
-    background: linear-gradient(90deg, #007bff, #0056b3);
-    animation: loading-animation 2s infinite; /* Animates the bar */
-}
-
-.loading-bar span {
-    font-family: 'Arial', sans-serif;
-    font-size: 1rem; /* Adjust size */
-    color: #555; /* Text color */
-}
-
-/* Keyframe Animation for Loading Bar */
-@keyframes loading-animation {
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    animation: progressAnimation 2s infinite;
+    box-shadow: 0 0 10px #ff8a00, 0 0 20px #e52e71;
+  }
+  
+  .loading-text {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    animation: pulseText 1.5s infinite;
+  }
+  
+  /* Keyframes for Progress Animation */
+  @keyframes progressAnimation {
     0% {
-        transform: translateX(-100%);
+      width: 0%;
     }
     50% {
-        transform: translateX(0);
+      width: 100%;
     }
     100% {
-        transform: translateX(100%);
+      width: 0%;
     }
-}
-
+  }
+  
+  /* Keyframes for Text Pulsing */
+  @keyframes pulseText {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
