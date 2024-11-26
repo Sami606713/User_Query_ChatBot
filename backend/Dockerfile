@@ -7,6 +7,12 @@ WORKDIR /backend
 # Copy the entire backend folder except ignored files (use .dockerignore)
 COPY . .
 
+# Copy requirements file
+COPY backend/requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
