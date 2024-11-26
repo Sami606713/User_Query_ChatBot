@@ -4,19 +4,16 @@ FROM python:3.11-slim
 # Set the working directory inside the container
 WORKDIR /backend
 
-# Copy the entire backend folder except ignored files (use .dockerignore)
-COPY . .
-
-# Copy requirements file
-COPY backend/requirements.txt .
+# Copy only the requirements file (improves build caching)
+COPY backend/requirements.txt requirements.txt
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy all application files
+COPY backend/ .
 
-# Expose the default port for uvicorn
+# Expose the port (optional, for documentation)
 EXPOSE 8000
 
 # Command to run the application
