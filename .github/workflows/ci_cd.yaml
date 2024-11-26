@@ -35,7 +35,7 @@ jobs:
       - name: Install dependencies
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          TAVILY_API_KEY: ${{secrets.AVILY_API_KEY}}
+          TAVILY_API_KEY: ${{secrets.TAVILY_API_KEY}}
 
         run: |
           python -m pip install --upgrade pip
@@ -94,5 +94,5 @@ jobs:
             docker stop my-app || true
             docker rm my-app || true
             docker run -d -p 80:8000 --name my-app \
-              -e GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} -e TAVILY_API_KEY=${{secrets.AVILY_API_KEY}}\
+              -e GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} -e TAVILY_API_KEY=${{secrets.TAVILY_API_KEY}}\
               ${{ secrets.DOCKER_USERNAME }}/campusx_bot:latest
