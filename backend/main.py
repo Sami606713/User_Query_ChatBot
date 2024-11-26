@@ -12,13 +12,14 @@ origins = [
     "http://127.0.0.1:3000",  # Allow requests from this origin
     "http://localhost:3000",  # Allow requests from localhost
     "http://localhost:3001",
-    "http://localhost:3002"
+    "http://localhost:3002",
+    "https://campusxchatbot.s3.eu-north-1.amazonaws.com/frontend/index.html"
 ]
 
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Specify allowed origins
+    allow_origins=origins,  # Specify allowed origins
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
     allow_headers=["*"],  # Allow all headers
