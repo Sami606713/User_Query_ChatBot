@@ -1,0 +1,20 @@
+# Ignore the virtual environment
+venv/
+
+# Ignore sensitive files
+.env
+
+# Ignore Dockerfile and .dockerignore itself (optional)
+Dockerfile
+.dockerignore
+
+# Ignore other unnecessary files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore .gitignore file
+.gitignore
+
+# Ignore web_app file
+web_app.py
