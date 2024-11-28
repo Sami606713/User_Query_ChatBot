@@ -112,5 +112,5 @@ jobs:
             echo "${{ secrets.DOCKER_COMPOSE_YML }}" > docker-compose.yml
 
             # Pull images and run the application
-            docker-compose pull
-            docker-compose up -d
+            # docker-compose pull
+            # docker-compose up -d
