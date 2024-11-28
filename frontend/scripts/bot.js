@@ -65,7 +65,7 @@ sendButton.addEventListener('click', () => {
 function getResponse(query) {
     console.log("Getting Data...");
     
-    fetch("http://ec2-13-51-86-50.eu-north-1.compute.amazonaws.com/response", {
+    fetch("http://localhost:8000/response", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

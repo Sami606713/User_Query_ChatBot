@@ -4,14 +4,23 @@ FROM python:3.11-slim
 # Set the working directory inside the container
 WORKDIR /backend
 
+# Set arguments for environment variables
+ARG TAVILY_API_KEY
+ARG GROQ_API_KEY
+
+# Pass them into the container environment
+ENV TAVILY_API_KEY=${TAVILY_API_KEY}
+ENV GROQ_API_KEY=${GROQ_API_KEY}
+
+
 # Copy only the requirements file (improves build caching)
-COPY backend/requirements.txt requirements.txt
+COPY requirements.txt requirements.txt
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy all application files
-COPY backend/ .
+COPY . .
 
 # Expose the port (optional, for documentation)
 EXPOSE 8000
