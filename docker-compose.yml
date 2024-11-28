@@ -5,6 +5,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    image: sami606713/campusx_bot:frontend-latest  # Tag for the frontend
     ports:
       - "80:80"
     restart: always
@@ -15,6 +16,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    image: sami606713/campusx_bot:backend-latest  # Tag for the backend
     ports:
       - "8000:8000"
     networks:

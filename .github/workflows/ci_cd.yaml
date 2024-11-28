@@ -109,7 +109,7 @@ jobs:
             sudo chmod +x /usr/local/bin/docker-compose
 
             # Copy the docker-compose file (optional; you can also scp it earlier)
-            echo "${{ secrets.DOCKER_COMPOSE_YML }}" > docker-compose.yml
+            # echo "${{ secrets.DOCKER_COMPOSE_YML }}" > docker-compose.yml
 
             # Pull images and run the application
             docker-compose pull
