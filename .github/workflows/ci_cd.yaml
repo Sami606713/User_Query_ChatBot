@@ -112,5 +112,9 @@ jobs:
             echo "${{ secrets.DOCKER_COMPOSE_YML }}" > docker-compose.yml
 
             # Pull images and run the application
-            # docker-compose pull
+            docker-compose pull
             # docker-compose up -d
+          # Step 5: Display success message
+      - name: Success Message
+        if: success()  # This ensures the step only runs if all previous steps succeed
+        run: echo "🎉 CI workflow completed successfully! All steps passed."
