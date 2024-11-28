@@ -84,37 +84,47 @@ jobs:
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           TAVILY_API_KEY: ${{secrets.TAVILY_API_KEY}}
+      # Step 4: Build and run containers
+      - name: Build and run services
+        run: |
+          docker-compose -f docker-compose.yml up -d
+
+      # # Step 6: Tear down the services
+      # - name: Tear down services
+      #   if: always()  # Ensures this step runs even if previous steps fail
+      #   run: |
+      #     docker-compose down
       
-       # Optional: Verify pushed images
-      - name: List images
-        run: docker images
+      #  # Optional: Verify pushed images
+      # - name: List images
+      #   run: docker images
   
-  deployment_job:
-    needs: docker  # Ensures this job runs only after the 'docker' job is successful
-    runs-on: ubuntu-latest
+  # deployment_job:
+  #   needs: docker  # Ensures this job runs only after the 'docker' job is successful
+  #   runs-on: ubuntu-latest
 
-    steps:
-      # Step 1: SSH into the EC2 instance
-      - uses: appleboy/ssh-action@v0.1.5
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
-          debug: true
-          script: |
-            # Update packages and install Docker/Compose if not already installed
-            sudo apt-get update -y
-            sudo apt-get install -y docker.io
-            sudo curl -L "https://github.com/docker/compose/releases/download/v2.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-            sudo chmod +x /usr/local/bin/docker-compose
+  #   steps:
+  #     # Step 1: SSH into the EC2 instance
+  #     - uses: appleboy/ssh-action@v0.2.0
+  #       with:
+  #         host: ${{ secrets.EC2_HOST }}
+  #         username: ${{ secrets.EC2_USERNAME }}
+  #         key: ${{ secrets.EC2_PRIVATE_KEY }}
+  #         debug: true
+  #         script: |
+  #           # Update packages and install Docker/Compose if not already installed
+  #           sudo apt-get update -y
+  #           sudo apt-get install -y docker.io
+  #           sudo curl -L "https://github.com/docker/compose/releases/download/v2.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  #           sudo chmod +x /usr/local/bin/docker-compose
 
-            # Copy the docker-compose file (optional; you can also scp it earlier)
-            # echo "${{ secrets.DOCKER_COMPOSE_YML }}" > docker-compose.yml
+  #           # Copy the docker-compose file (optional; you can also scp it earlier)
+  #           # echo "${{ secrets.DOCKER_COMPOSE_YML }}" > docker-compose.yml
 
-            # Pull images and run the application
-            docker-compose pull
-            # docker-compose up -d
-          # Step 5: Display success message
-      - name: Success Message
-        if: success()  # This ensures the step only runs if all previous steps succeed
-        run: echo "🎉 CI workflow completed successfully! All steps passed."
+  #           # Pull images and run the application
+  #           docker-compose pull
+  #           # docker-compose up -d
+  #         # Step 5: Display success message
+  #     - name: Success Message
+  #       if: success()  # This ensures the step only runs if all previous steps succeed
+  #       run: echo "🎉 CI workflow completed successfully! All steps passed."
