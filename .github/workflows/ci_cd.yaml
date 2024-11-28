@@ -95,8 +95,7 @@ jobs:
 
     steps:
       # Step 1: SSH into the EC2 instance
-      - name: SSH into EC2 instance
-        uses: appleboy/ssh-action@v0.1.5
+      - uses: appleboy/ssh-action@v0.1.5
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
