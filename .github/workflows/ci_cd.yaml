@@ -117,17 +117,17 @@ jobs:
             sudo apt-get install -y docker.io
 
             # Pull backend and frontend images
-            docker pull repository_name/backend-latest
-            docker pull repository_name/frontend-latest
+            docker pull sami606713/campusx_bot:backend-latest
+            docker pull sami606713/campusx_bot:frontend-latest
 
             # Create a custom Docker network
             docker network create project-network
 
             # Run the backend container
-            docker run --name backend-container --network project-network -d -p 5000:5000 repository_name/backend-latest
+            docker run --name backend-container --network project-network -d -p 5000:5000 sami606713/campusx_bot:backend-latest
 
             # Run the frontend container
-            docker run --name frontend-container --network project-network -d -p 3000:3000 -e REACT_APP_BACKEND_URL=http://backend-container:5000 repository_name/frontend-latest
+            docker run --name frontend-container --network project-network -d -p 3000:3000 -e REACT_APP_BACKEND_URL=http://backend-container:5000 sami606713/campusx_bot:frontend-latest
 
       # Step 2: Display success message
       - name: Success Message
