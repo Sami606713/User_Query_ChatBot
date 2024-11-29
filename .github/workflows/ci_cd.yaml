@@ -127,7 +127,7 @@ jobs:
             docker run --name backend-container --network project-network -d -p 5000:5000 sami606713/campusx_bot:backend-latest
 
             # Run the frontend container
-            # docker run --name frontend-container --network project-network -d -p 3000:3000 -e REACT_APP_BACKEND_URL=http://backend-container:5000 sami606713/campusx_bot:frontend-latest
+            docker run --name frontend-container --network project-network -d -p 3000:3000 -e REACT_APP_BACKEND_URL=http://backend-container:5000 sami606713/campusx_bot:frontend-latest
 
       # Step 2: Display success message
       - name: Success Message
