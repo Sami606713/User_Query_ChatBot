@@ -116,12 +116,16 @@ jobs:
             sudo apt-get update -y
             sudo apt-get install -y docker.io
 
+            # Stop and remove any existing containers
+            docker stop backend-container frontend-container || true
+            docker rm backend-container frontend-container || true
+
             # Pull backend and frontend images
             docker pull sami606713/campusx_bot:backend-latest
             docker pull sami606713/campusx_bot:frontend-latest
 
-            # Create a custom Docker network
-            docker network create project-network
+            # Create a custom Docker network if it doesn't exist
+            docker network inspect project-network >/dev/null 2>&1 || docker network create project-network
 
             # Run the backend container
             docker run --name backend-container --network project-network -d -p 5000:5000 sami606713/campusx_bot:backend-latest
